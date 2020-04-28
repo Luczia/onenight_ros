@@ -6,8 +6,8 @@ It also include a Gazebo simulation environment for the Eurobot 2020 including t
 
 ## Simulation environment setup
 
-The Eurobot simulation contains a set a model which you should import as a gazebo library.
-For so, please add to your **GAZEBO_MODEL_PATH** environment variable the path to the onenight_gazebo/worlds/models directory.
+The Eurobot simulation contains a set of models which you have to import as a gazebo library.
+Thus, you will want to add to your **GAZEBO_MODEL_PATH** environment variable the path to the onenight_gazebo/worlds/models directory.
 To do so, I would advise to add in your ~.bashrc the following line: 
 ```
 export GAZEBO_MODEL_PATH=<your_catkin_ws_paths>/src/onenight_ros/onenight_gazebo/worlds/models:$GAZEBO_MODEL_PATH
