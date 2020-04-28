@@ -25,3 +25,5 @@ To launch onenight on the table, please use :
 ```
 roslaunch onenight_bringup simu.launch
 ```
+
+![Simu photo](https://github.com/Luczia/onenight_ros/blob/master/data/pictures/Simu.png raw=true "Title")
