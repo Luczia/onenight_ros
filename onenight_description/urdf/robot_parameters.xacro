@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:arg name="training_wheels" default="false" />
+
+  <xacro:property name="wheel_mass" default="0.5" />
+  <xacro:property name="wheel_radius" default="0.1" />
+  <xacro:property name="wheel_thickness" default="0.05" />
+  <xacro:property name="wheelbase" default="0.5" />
+  <xacro:property name="thigh_length" default="0.4" />
+  <xacro:property name="thigh_conrod_length" default="0.5" />
+  <xacro:property name="calf_length" default="0.4" />
+
+  <xacro:property name="body_mass" default="10" />
+
+  <xacro:property name="robot_namespace" default="" />
+ 
+  <xacro:property name="depth_camera_name" value="Creative"/>
+  <xacro:property name="depth_camera_mass" value="0.1"/>
+
+  <!-- ###################################################MATERIAL DEFINITION######################################## -->
+<!-- ######################################################################################################### -->
+  <material name="red">
+    <color rgba="0.9 0.15 0.15 1.0"/>
+  </material>
+
+ <material name="green">
+    <color rgba="0.2 0.8 0.2 1.0"/>
+  </material>
+
+  <material name="orange">
+    <color rgba="0.64 0.313939 0.095351 1.0"/>
+  </material>
+
+   <material name="blue">
+    <color rgba="0.12 0.42 0.8 1.0"/>
+  </material>
+
+</robot>

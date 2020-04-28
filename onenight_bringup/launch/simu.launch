@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<launch>
+
+ 
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+  <arg name="paused" value="true"/>
+  <arg name="use_sim_time" value="true"/>
+  <arg name="gui" value="true"/>
+  <arg name="recording" value="false"/>
+  <arg name="debug" value="false"/>
+  <arg name="world_name" value="$(find onenight_gazebo)/worlds/eurobot_2020.world"/> 
+  </include>
+
+  <!-- start gui -->
+  <!-- <node name="gazebo_gui" pkg="gazebo" type="gui" respawn="false" output="screen"/> -->
+
+  <!-- Load the URDF in the ROS robot server with default values afore-defined-->  <!-- No namespace here as we will share this description. 
+       Access with slash at the beginning -->
+<param name="robot_description" command="$(find xacro)/xacro '$(find onenight_description)/urdf/onenight.urdf' " />
+
+
+<!-- BEGIN Launching ROBOT 1-->
+<arg name="ns_arg" value ="Onenight"/>
+ <!-- <group ns="$(arg ns_arg)"> -->  <!-- Uncomment to enable multi-robot but currently bugged...-->
+
+    <param name="tf_prefix" value="$(arg ns_arg)_tf" /> -
+
+    <include file="$(find onenight_gazebo)/launch/spawn_onenight_gazebo.launch">          
+      <arg name="init_pose" value="-x 1.25 -y 0.1 -z 1.12 -R 0 -P 0 -Y 3.1415" />
+      <arg name="robot_name"  value="$(arg ns_arg)" />
+      <arg name="tf_prefix" value="$(arg ns_arg)_tf"/>
+    </include>
+ <!-- </group> -->
+
+
+
+          
+</launch>

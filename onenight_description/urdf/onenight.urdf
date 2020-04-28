@@ -1,0 +1,180 @@
+<?xml version="1.0" ?>
+
+<robot name="Movee" xmlns:xacro="http://www.ros.org/wiki/xacro">
+ 
+
+  <!-- <xacro:include filename="robot_parameters.xacro" /> -->
+  <xacro:include filename="inertia_matrix_macro.xacro"/> 
+  <!-- <xacro:include filename="friction.xacro"/> -->
+  <!-- <xacro:include filename="sensors.xacro" /> -->
+  
+
+    
+<!-- ############################################################################################# -->
+ <!-- ############################ Joint and Transmissions definition ############################ -->
+
+<!-- Dummy joint for KDL -->
+  <joint name="base_to_chassis" type="fixed">
+    <parent link="base_link"/>
+    <child link="chassis_link"/>
+    <origin xyz="0 0 0"/>
+  </joint>
+ 
+
+
+
+ <!-- Wheels-->
+  <joint name="wheel_pivot_right" type="continuous">
+    <parent link="chassis_link"/>
+    <child link="wheel_right"/>
+    <origin rpy="1.56 3.14159 3.14159" xyz="-0.0  -0.1 -0.13"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="-1.0"  velocity="-1.0"/>
+    <!-- <limit effort="-1.0" lower="-3.14" upper="3.14" velocity="-1.0"/> -->
+  </joint>
+  <transmission name="wheel_pivot_right_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="wheel_pivot_right">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="wheel_motor_right">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <joint name="wheel_pivot_left" type="continuous">
+    <parent link="chassis_link"/>
+    <child link="wheel_left"/>
+    <origin rpy="1.56 0 3.14159" xyz="0.0 0.1 -0.13"/>
+    <axis xyz="0   0   1"/>
+    <limit effort="-1.0"  velocity="-1.0"/>
+    <!-- <limit effort="-1.0" lower="-3.14" upper="3.14" velocity="-1.0"/> -->
+  </joint>
+  <transmission name="wheel_pivot_left_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="wheel_pivot_left">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="wheel_motor_left">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+<!-- ############################################################################################# -->
+<!-- ################################# Link definition ########################################### -->
+ <link name="base_link"> <!-- Keep a dummy base_link empty to avoid without inertial property to avoid bug in KDL -->
+  
+  </link>
+
+  <link name="chassis_link">
+    <inertial>
+      <mass value="10"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>      
+          <xacro:cylinder_inertia m="10" r="0.15" h="0.35" />
+    </inertial>
+    <collision name="collision">
+      <origin rpy="0  0  0" xyz="0   0   0.94"/>
+      <geometry>
+        <cylinder length="0.35" radius="015"/>
+      </geometry>
+    </collision>
+    <visual name="visual">
+      <origin rpy="0  0  0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.35" radius="0.15"/>
+      </geometry>
+    </visual>
+    <visual name="visual">
+      <origin rpy="0 0 0" xyz="0.  0  0.22"/>
+      <geometry>
+        <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </visual>        
+  </link>
+
+  <gazebo reference="chassis_link">
+  <material>Gazebo/Orange</material>
+  </gazebo>
+
+  <link name="wheel_right">
+    <inertial>
+      <mass value="0.2"/>
+      <origin rpy="0  0  0" xyz="0  0  0.01"/>      
+      <xacro:cylinder_inertia m="0.2" r="0.05" h="0.02"/>
+    </inertial>
+    <collision name="Movee__collision">
+      <origin rpy="0  0  0" xyz="0    0    0.0"/>
+      <geometry>
+        <cylinder length="0.02" radius="0.05"/>
+      </geometry>
+    </collision>
+    <visual name="Movee__visual">
+      <origin rpy="0  0  0" xyz="0    0    0.0"/>
+      <geometry>
+         <cylinder length="0.02" radius="0.05"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="wheel_left">
+    <inertial>
+      <mass value="0.2"/>
+      <origin rpy="0  0  0" xyz="0  0  0.01"/>   
+      <xacro:cylinder_inertia m="0.2" r="0.05" h="0.02"/>
+    </inertial>
+    <collision name="Movee__collision">
+      <origin rpy="0  0  0" xyz="0 0 0"/>
+      <geometry>
+         <cylinder length="0.02" radius="0.0"/>
+      </geometry>
+    </collision>
+    <visual name="Movee__visual">
+      <origin rpy="0  0  0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.02" radius="0.05"/>
+      </geometry>
+    </visual>
+  </link>
+   <!-- END of Robot description -->
+
+    <!-- Hokuyo Laser###### -->
+<joint name="hokuyo_joint" type="fixed">
+    <axis xyz="0 0 0" />
+    <origin xyz="0.1 0 0.2" rpy="0 0 1.57"/>
+    <parent link="chassis_link"/>
+    <child link="hokuyo_link"/>
+  </joint>
+
+  <link name="hokuyo_link">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+         <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>        
+        <mesh filename="package://onenight_description/meshes/hokuyo.dae"/>        
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="0.2" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+
+
+<!-- ###################################################GAZEBO PLUGINS######################################## -->
+<!-- ######################################################################################################### -->
+ <!-- <xacro:include filename="gazebo_plugins.xacro" /> -->
+ 
+
+</robot>
+ 
+  

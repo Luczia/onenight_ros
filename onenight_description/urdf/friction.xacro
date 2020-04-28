@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+  
+  <gazebo reference="chassis_link" >
+    <material>Gazebo/>Red</material>
+        <friction>
+            <mu>0</mu>
+            <mu2>0</mu2>
+            <slip1>1.0</slip1>
+            <slip2>1.0</slip2>          
+        </friction>
+  </gazebo>
+  <gazebo reference="base_link" >
+    <material>Gazebo/>Red</material>
+        <friction>
+            <mu>0</mu>
+            <mu2>0</mu2>
+            <slip1>1.0</slip1>
+            <slip2>1.0</slip2>          
+        </friction>
+  </gazebo>
+
+  <gazebo reference="wheel_right" >
+    <material>Gazebo/Grey</material>
+    <mu1>10000</mu1>
+    <mu2>10000</mu2>
+  </gazebo>
+
+  <gazebo reference="wheel_left" >
+    <material>Gazebo/Grey</material>
+    <mu1>10000</mu1>
+    <mu2>10000</mu2>
+  </gazebo>
+
+  <gazebo reference="imu_link" >
+    <material>Gazebo/>Red</material>
+  </gazebo>
+
+  <gazebo reference="camera_link" >
+    <material>Gazebo/>ZincYellow</material>
+  </gazebo>
+
+  <gazebo reference="depth_sensor_link" >
+    <material>Gazebo/TurquoiseGlow></material>
+  </gazebo>
+
+  <gazebo reference="training_wheel_1">
+    <mu1>0.8</mu1>
+    <mu2>0.8</mu2>
+    <maxVel>0.0</maxVel>
+    <minDepth>0.001</minDepth>
+  </gazebo>
+  <gazebo reference="training_wheel_2">
+    <mu1>0.8</mu1>
+    <mu2>0.8</mu2>
+    <maxVel>0.0</maxVel>
+    <minDepth>0.001</minDepth>
+  </gazebo>
+  <gazebo reference="training_wheel_3">
+    <mu1>0.8</mu1>
+    <mu2>0.8</mu2>
+    <maxVel>0.0</maxVel>
+    <minDepth>0.001</minDepth>
+  </gazebo>
+
+  
+
+</robot>

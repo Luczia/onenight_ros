@@ -1,0 +1,136 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+ <!--  Depth Sensor ####################################-->
+  <joint name="depth_sensor_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="0 0.08 1.02" rpy="0 0 1.57"/>
+    <parent link="chassis_link"/>
+    <child link="depth_sensor_link"/>
+  </joint>
+
+
+ <link name="depth_sensor_link">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.2 0.05"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0.02 0.0 0.015" rpy="1.57 0 1.57"/>
+      <geometry>        
+        <mesh filename="package://movee_description/meshes/xtion_pro.dae" scale="0.001 0.001 0.001"/>
+        <!-- <box size="0.05 0.2 0.05"/> -->
+      </geometry>
+      <material name="green"/>
+    </visual>
+
+    <inertial>
+      <mass value="${depth_camera_mass}" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <xacro:box_inertia m="${depth_camera_mass}" x="0.05" y="0.15" z="0.05" />      
+    </inertial>
+ </link>
+
+
+ <!--  Camera ####################################-->
+  <joint name="camera_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="0 0.05 0.92" rpy="1.57 0 -1.57"/>
+    <parent link="chassis_link"/>
+    <child link="camera_link"/>
+  </joint>
+
+
+ <link name="camera_link">
+    <collision>
+      <origin xyz="0 0.2 0.8" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+       <!-- <mesh filename="package://teeterbot_description/meshes/CamIR.dae"/> -->
+        <box size="0.05 0.08 0.05"/>
+      </geometry>
+      <!-- <material name="blue"/>      -->
+     
+    </visual>
+
+    <inertial>
+      <mass value="0.1" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <xacro:box_inertia m="0.1" x="0.05" y="0.05" z="0.05" />
+      <!-- <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" /> -->
+    </inertial>
+  </link>
+
+
+  
+ 
+  <!--  IMU  ####################################-->
+ <joint name="imu_joint" type="fixed">
+    <axis xyz="0 0 0" />
+    <origin xyz="0 0 0.90" rpy="0 0 0"/>
+    <parent link="chassis_link"/>
+    <child link="imu_link"/>
+  </joint>
+
+  <link name="imu_link">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+    <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.05 0.05"/>        
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="0.1" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+  <!-- Hokuyo Laser###### -->
+<joint name="hokuyo_joint" type="fixed">
+    <axis xyz="0 0 0" />
+    <origin xyz="0 0 1.1" rpy="0 0 1.57"/>
+    <parent link="chassis_link"/>
+    <child link="hokuyo_link"/>
+  </joint>
+
+  <link name="hokuyo_link">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+         <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>        
+        <mesh filename="package://movee_description/meshes/hokuyo.dae"/>        
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="0.2" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+  </robot>

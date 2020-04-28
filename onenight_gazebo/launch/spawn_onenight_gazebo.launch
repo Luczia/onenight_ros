@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!-- This script spanw a robot in gazebo (with its state/joint publisher and controllers) -->
+<launch>
+
+<!-- Init the robot parameters if not done -->
+<arg name="init_pose" default="-x 0 -y 0 -z 0.20 -R 0 -P 0 -Y 0"/>
+<arg name="robot_name" default="Ono"/>
+<arg name="tf_prefix" default=""/>
+
+ <!-- <param name="robot_description" command="$(find xacro)/xacro  '$(find onenight_description)/urdf/onenight.urdf'" /> -->
+
+<!-- Spawn the robot--> 
+  <node name="onenight_robot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" respawn="false"
+          args="-urdf -param /robot_description -model $(arg robot_name) $(arg init_pose)" />
+
+
+</launch>
